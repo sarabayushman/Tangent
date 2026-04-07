@@ -1,6 +1,6 @@
 # Tangent
 
-Tangent is a Windows desktop sidebar concept built with PyQt5. The project aims to provide a lightweight, always-available workspace companion that can stay pinned to the edge of the screen and expand into a richer utility surface when needed.
+Tangent is a hover-activated Windows sidebar combining an AI chatbot, autonomous agents, on-screen visual search, and a temporary file dock. It acts as an unobtrusive copilot to accelerate your workflow without cluttering your screen. The project aims to provide a lightweight, always-available workspace companion that can stay pinned to the edge of the screen and expand into a richer utility surface when needed.
 
 ## Overview
 
@@ -64,7 +64,7 @@ The application starts in a compact inactive state positioned near the top-left 
 ### 1. Clone the repository
 
 ```bash
-git clone <your-repository-url>
+git clone "https://github.com/sarabayushman/Tangent.git"
 cd Tangent
 ```
 
@@ -93,15 +93,6 @@ python dev/main.py
 - Screen modules are separated into `activeScreen` and `inactiveScreen` to keep the UI flow modular.
 - The inactive UI is currently defined in `dev/screen/inactiveScreen/inactiveScreen.ui`.
 
-## Roadmap
-
-Planned areas of development include:
-
-1. refining the active sidebar experience
-2. adding structured navigation and interaction flows
-3. integrating AI and automation capabilities
-4. supporting utility modules such as search and file staging
-5. improving styling, responsiveness, and packaging for release
 
 ## Contributing
 
@@ -109,4 +100,4 @@ Contributions, suggestions, and design ideas are welcome. If you plan to extend 
 
 ## License
 
-No license has been added yet. If this project is intended for public use, add a license file before distribution.
+No license has been added. I am making this an opensourced project
