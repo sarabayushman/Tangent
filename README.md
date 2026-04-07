@@ -64,7 +64,7 @@ The application starts in a compact inactive state positioned near the top-left 
 ### 1. Clone the repository
 
 ```bash
-git clone <your-repository-url>
+git clone "https://github.com/sarabayushman/Tangent.git"
 cd Tangent
 ```
 
