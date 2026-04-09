@@ -13,6 +13,14 @@ class WindowStacker(QStackedWidget):
 
         self.setCurrentIndex(0) # Start with the inactive screen by default
 
+    def setCurrentIndex(self, index):
+        """ Override the setCurrentIndex method to perform any necessary setup whenever the current screen is changed. This allows each screen to perform any necessary setup whenever it becomes the current screen. """
+
+        super().setCurrentIndex(index)
+        
+        self.widget(index).__initBeforeLoad__() # Call the __initBeforeLoad__ method of the new screen to perform any necessary setup always whenever WindowStacker's currentIndex is changed. This allows each screen to perform any necessary setup whenever it becomes the current screen.
+
+        
 class AppWindow(QMainWindow):
     def __init__(self):
         """ The main application window that will hold the WindowStacker and manage the overall application although itself is transparent and frameless """
