@@ -1,23 +1,34 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QPoint, QEvent, QEasingCurve, QPropertyAnimation, QTimer, Qt
+from PyQt5.QtGui import QColor
+from PyQt5.uic import loadUi
 
 class ActiveScreenWidget(QWidget):
     def __init__(self, MainApp:QMainWindow):
         super().__init__()
         self.MainApp = MainApp # A reference to the main application window, which is passed in when the widget is created. This allows the widget to interact with the main application window, such as resizing or moving it.
+
         self.animation = None # A reference to the current animation, which is used to perform the sliding animation when the screen is shown or hidden. This allows the widget to keep track of the current animation and ensure that it is properly managed and stopped when necessary.
         self._is_closing = False # A flag to indicate whether the screen is currently in the process of closing. This is used to prevent multiple close animations from being triggered simultaneously, which could cause unexpected behavior or visual glitches.
         self._ready_to_close = False # A flag to indicate whether the screen is ready to be closed. This is used to ensure that the close animation is only triggered when the screen is fully loaded and ready, preventing premature closing or visual glitches.
 
-        self.setAttribute(Qt.WA_StyledBackground, True)
-        self.setStyleSheet("background-color: rgba(255,255,255,150); border-radius: 10px;") 
+        loadUi("./dev/screen/activeScreen/activeScreen.ui", self) # loading the UI file
+        self.setAttribute(Qt.WA_StyledBackground, True) # Making the widget transparent and allowing it to have a styled background for the UI file
+        self.MainApp.installEventFilter(self) # Install an event filter on the main application window to detect when it loses focus, which will trigger the close animation for the active screen. This allows the active screen to automatically close when the user clicks outside of it or switches to another application, providing a seamless user experience.
 
-        self.MainApp.installEventFilter(self)
+        # shadow = QGraphicsDropShadowEffect(self)
+        # shadow.setBlurRadius(20)
+        # shadow.setColor(QColor(0, 0, 0, 160))
+        # self.shadow_widget.setGraphicsEffect(shadow)
+        # shadow2 = QGraphicsDropShadowEffect(self)
+        # shadow2.setBlurRadius(0)
+        # self.widget.setGraphicsEffect(shadow2)
 
     def __initBeforeLoad__(self):
         """ A method to perform any setup to the screen whenever WindowStacker's currentIndex is changed to this screen. This method is automatically called with `WindowStacker.setCurrentIndex(int)` """
         #-------------
-        self.MainApp.resize(400, 300) 
+        # self.MainApp.resize(400, 300) 
+        self.MainApp.resize(565, 356) 
         self.MainApp.move(self.MainApp.x(), -(self.MainApp.height()))
         #-------------
         self._is_closing = False
@@ -27,6 +38,8 @@ class ActiveScreenWidget(QWidget):
         self.MainApp.raise_()
         self.MainApp.activateWindow()
         QTimer.singleShot(0, self._enable_close_detection)
+    
+    ############################### Animations ###############################
 
     def eventFilter(self, obj, event):
         """Close the active screen when the window loses focus."""
@@ -72,6 +85,8 @@ class ActiveScreenWidget(QWidget):
         self._is_closing = False
         if self.MainApp.windowStacker.currentIndex() == 1:
             self.MainApp.windowStacker.setCurrentIndex(0)
+
+    ############################### ---  ###############################
 
     
 if __name__ == "__main__":
