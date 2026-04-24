@@ -2,8 +2,10 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QPoint, QEvent, QEasingCurve, QPropertyAnimation, QTimer, Qt
 from PyQt5.QtGui import QColor
 from PyQt5.uic import loadUi
+from screen.activeScreen.menu import chatMenu, agentsMenu, searchMenu, dockMenu, settingsMenu
+from scripts.simpleWindow import SimpleWindow
 
-class ActiveScreenWidget(QWidget):
+class ActiveScreenWidget(SimpleWindow):
     def __init__(self, MainApp:QMainWindow):
         super().__init__()
         self.MainApp = MainApp # A reference to the main application window, which is passed in when the widget is created. This allows the widget to interact with the main application window, such as resizing or moving it.
@@ -12,23 +14,51 @@ class ActiveScreenWidget(QWidget):
         self._is_closing = False # A flag to indicate whether the screen is currently in the process of closing. This is used to prevent multiple close animations from being triggered simultaneously, which could cause unexpected behavior or visual glitches.
         self._ready_to_close = False # A flag to indicate whether the screen is ready to be closed. This is used to ensure that the close animation is only triggered when the screen is fully loaded and ready, preventing premature closing or visual glitches.
 
-        loadUi("./dev/screen/activeScreen/activeScreen.ui", self) # loading the UI file
+        self._size = [670, 420] # The size of the active screen, which is used to set the size of the main application window when the active screen is shown. This allows the active screen to have a specific size that is different from the inactive screen, providing a more tailored user experience.
+
+        # ---------------------- setting ui ----------------------
+
+        self.setCanvasUI('./dev/screen/activeScreen/activeScreenDesign.ui') # loading the UI file
+
+        #---------------------- other ----------------------
+
         self.setAttribute(Qt.WA_StyledBackground, True) # Making the widget transparent and allowing it to have a styled background for the UI file
         self.MainApp.installEventFilter(self) # Install an event filter on the main application window to detect when it loses focus, which will trigger the close animation for the active screen. This allows the active screen to automatically close when the user clicks outside of it or switches to another application, providing a seamless user experience.
 
-        # shadow = QGraphicsDropShadowEffect(self)
-        # shadow.setBlurRadius(20)
-        # shadow.setColor(QColor(0, 0, 0, 160))
-        # self.shadow_widget.setGraphicsEffect(shadow)
-        # shadow2 = QGraphicsDropShadowEffect(self)
-        # shadow2.setBlurRadius(0)
-        # self.widget.setGraphicsEffect(shadow2)
+        # ---------------------- setting the button onclick event ----------------------
+
+        self.activeMenu = None
+        self.MenuBtnContainer = self.visibleWin.children()[1].widgeto
+        for i, child in enumerate(self.MenuBtnContainer.children()): # Debug print statement to show the child widgets of the visibleWin widget. This can be helpful for debugging and ensuring that the child widgets are being loaded correctly from the UI file.
+            if i != 0:
+                # print(f"{child.objectName()}: {child}")
+                child.clicked.connect(lambda _, btn=child: self.changed_menu(btn))
+            if i == 1:
+                self.activeMenu = child # Setting the activeMenu variable to the first button in the visibleWin widget, which is the menu button that will be used to switch between different menus in the active screen. This allows the active screen to have a specific menu button that can be easily accessed and interacted with by the user.
+
+        # --------------------- setting ActiveMenuWidget ----------------------
+
+        self.menuStackedWidget = QStackedWidget() #defining
+        self.menuStackedWidget.setStyleSheet(open("./dev/screen/activeScreen/style.qss", 'r').read()) # the style
+
+        self.menuStackedWidget.addWidget(chatMenu.ChatWidget())
+        self.menuStackedWidget.addWidget(agentsMenu.AgentWidget())
+        self.menuStackedWidget.addWidget(searchMenu.SearchWidget())
+        self.menuStackedWidget.addWidget(dockMenu.DockWidget())
+        self.menuStackedWidget.addWidget(settingsMenu.SettingsWidget())
+
+        self.menuStackedWidget.setCurrentIndex(0)
+
+        self.visibleWin.children()[1].children()[0].addWidget(self.menuStackedWidget)
+
+        # ----------------------------------------------------------------------
+
 
     def __initBeforeLoad__(self):
         """ A method to perform any setup to the screen whenever WindowStacker's currentIndex is changed to this screen. This method is automatically called with `WindowStacker.setCurrentIndex(int)` """
         #-------------
         # self.MainApp.resize(400, 300) 
-        self.MainApp.resize(565, 356) 
+        self.MainApp.resize(*self._size) 
         self.MainApp.move(self.MainApp.x(), -(self.MainApp.height()))
         #-------------
         self._is_closing = False
@@ -39,6 +69,15 @@ class ActiveScreenWidget(QWidget):
         self.MainApp.activateWindow()
         QTimer.singleShot(0, self._enable_close_detection)
     
+    ############################### Menu changes ###############################
+    
+    def changed_menu(self, menuBtn):
+        self.activeMenu.setStyleSheet("QPushButton{background-color: transparent;color: rgba(0,0,0,0.6);border-radius: 10px;}QPushButton:hover{border:1px solid grey;}")
+        self.activeMenu = menuBtn
+        self.activeMenu.setStyleSheet("background-color: white;color: black;border: none;border-radius: 10px;")
+        self.menuStackedWidget.setCurrentIndex(int(menuBtn.objectName()[1]))
+        print(int(menuBtn.objectName()[1]))
+
     ############################### Animations ###############################
 
     def eventFilter(self, obj, event):
@@ -88,7 +127,3 @@ class ActiveScreenWidget(QWidget):
 
     ############################### ---  ###############################
 
-    
-if __name__ == "__main__":
-    import os
-    os.system("python ./dev/main.py")

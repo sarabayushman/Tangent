@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>496</width>
+    <height>351</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* --- Modern Scrollbar Style --- */
+QWidget{background-color: white;}
+
+/* --- QLabel Styling --- */
+QLabel {
+    color: rgb(40,40,40);
+    font-size: 15px;
+    font-weight: 400;
+    background: transparent;
+    padding: 4px;
+}
+
+/* Optional: A specific heading style if you use setObjectName(&quot;header&quot;) */
+QLabel#header {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 5px;
+}
+
+/* Optional: A &quot;status&quot; badge style if you use setObjectName(&quot;badge&quot;) */
+QLabel#badge {
+    background-color: #444;
+    border-radius: 10px;
+    padding: 2px 10px;
+    color: #3d5afe;
+    font-size: 12px;
+}
+
+
+/* --- QLineEdit &amp; QTextEdit --- */
+QLineEdit, QTextEdit {
+    background-color: #ffffff;
+    border: 1px solid #d1d1d1;
+    border-radius: 6px;
+    padding: 8px;
+    selection-background-color: #0078d4;
+    selection-color: white;
+}
+
+QLineEdit:hover, QTextEdit:hover {
+    border: 1px solid #a6a6a6;
+}
+
+QLineEdit:focus, QTextEdit:focus {
+    border: 2px solid #0078d4;
+    background-color: #ffffff;
+}
+
+
+/* Modern PushButton */
+QPushButton {
+    background-color: #3a3a3a;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 10px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #505050;
+}
+QPushButton:pressed {
+    background-color: #202020;
+}
+
+
+
+/* Vertical Scrollbar */
+QScrollBar:vertical {
+    border: none;
+    background: #f1f1f1; /* Track color */
+    width: 10px;          /* Width of vertical bar */
+    margin: 0px 0px 0px 0px;
+    border-radius: 5px;   /* Rounded track */
+}
+
+QScrollBar::handle:vertical {
+    background: #c1c1c1;  /* Thumb color */
+    min-height: 20px;
+    border-radius: 5px;   /* Rounded handle */
+}
+
+QScrollBar::handle:vertical:hover {
+    background: #a8a8a8;  /* Hover color */
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0px;          /* Hide arrows */
+    background: none;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none;     /* No background on track pieces */
+}
+
+/* Horizontal Scrollbar */
+QScrollBar:horizontal {
+    border: none;
+    background: #f1f1f1; /* Track color */
+    height: 5px;         /* Height of horizontal bar */
+    margin: 0px 0px 0px 0px;
+    border-radius: 5px;   /* Rounded track */
+}
+
+QScrollBar::handle:horizontal {
+    background: #c1c1c1;  /* Thumb color */
+    min-width: 20px;
+    border-radius: 5px;   /* Rounded handle */
+}
+
+QScrollBar::handle:horizontal:hover {
+    background: #a8a8a8;  /* Hover color */
+}
+
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
+    width: 0px;           /* Hide arrows */
+    background: none;
+}
+
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+    background: none;     /* No background on track pieces */
+}
+</string>
+  </property>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>30</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{background-color: rgb(10, 65, 150);}
+QPushButton:hover{background-color: rgb(0, 40, 140);}</string>
+   </property>
+   <property name="text">
+    <string>Add Items +</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font-size: 30px</string>
+   </property>
+   <property name="text">
+    <string>Dock</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="widget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>100</y>
+     <width>171</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+padding: 0px;
+background-color: rgb(240,240,240);
+color: black;
+border: 1px solid black;
+margin: 2px;
+}
+
+QWidget{
+border-radius: 10px;
+border: 1px solid grey;
+background-color: rgb(245,245,245)
+} QWidget:hover{border: 1px solid black;}
+
+QLabel{border: none;}</string>
+   </property>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>41</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{background-color: rgb(0, 126, 222);
+color: white;
+font-size: 12px;
+}
+QLabel:hover{
+border:none
+}</string>
+    </property>
+    <property name="text">
+     <string>FILE</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>151</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>LOC: C:/Ayushman/code.py</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{font-size: 10px;
+padding: 0;}
+QLabel:hover{
+border:none
+}</string>
+    </property>
+    <property name="text">
+     <string>LOC: C:/Ayushman/code.py</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>60</y>
+      <width>151</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 1px solid rgb(70,70,70)</string>
+    </property>
+    <property name="text">
+     <string>code.py</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>100</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>delete item</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{color: red;border:1px solid red;}
+QPushButton:hover{background-color: red; color: white}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>res/delete (1).png</normaloff>res/delete (1).png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>100</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>copy file location</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>res/copy.png</normaloff>res/copy.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_4">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>100</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>open file</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>res/share.png</normaloff>res/share.png</iconset>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="widget_2" native="true">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>100</y>
+     <width>181</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{
+padding: 0px;
+background-color: rgb(240,240,240);
+color: black;
+border: 1px solid black;
+margin: 2px;
+}
+
+QWidget{
+border-radius: 10px;
+border: 1px solid grey;
+background-color: rgb(240,240,240);
+} QWidget:hover{border: 1px solid black;}
+
+QLabel{border: none;}</string>
+   </property>
+   <widget class="QLabel" name="label_8">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>51</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel{background-color: rgb(20, 20, 20);
+color: white; font-size: 12px}
+QLabel:hover{
+border:none
+}</string>
+    </property>
+    <property name="text">
+     <string>TEXT</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_8">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>10</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>delete item</string>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton{color: red;border:1px solid red;}
+QPushButton:hover{background-color: red; color: white}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>res/delete (1).png</normaloff>res/delete (1).png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_9">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>10</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>copy text</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>res/copy (1).png</normaloff>res/copy (1).png</iconset>
+    </property>
+   </widget>
+   <widget class="QScrollArea" name="scrollArea">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>161</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: 0.5px solid rgba(70,70,70, 0.6);
+margin: 0px;
+padding: 0px;</string>
+    </property>
+    <property name="widgetResizable">
+     <bool>true</bool>
+    </property>
+    <widget class="QWidget" name="scrollAreaWidgetContents">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>159</width>
+       <height>79</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLabel" name="label_10">
+        <property name="styleSheet">
+         <string notr="true">border: none;</string>
+        </property>
+        <property name="text">
+         <string>Hello maxman, how do we help you cz</string>
+        </property>
+        <property name="scaledContents">
+         <bool>false</bool>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>0</width>
+          <height>16</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>30</y>
+     <width>201</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border: 1px solid black;</string>
+   </property>
+   <property name="placeholderText">
+    <string>search with AI</string>
+   </property>
+   <property name="clearButtonEnabled">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="Line" name="line">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>70</y>
+     <width>461</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
